@@ -6,6 +6,9 @@ spec:
   workspaces: 
     - name: pipeline-shared-data
   params:
+    - name: app-name 
+      type: string
+      description: Name of application
     - name: github-repo
       type: string
       description: GitHub repository url
@@ -13,7 +16,7 @@ spec:
       type: string
       description: Docker image repository
   tasks:
-    - name: fetch-repository
+    - name: clone-repository
       taskRef:
         name: git-clone
         kind: ClusterTask
@@ -29,7 +32,7 @@ spec:
         value:
         - install-ci-test
       runAfter:
-      - fetch-repository
+      - clone-repository
       taskRef:
         name: npm
         kind: Task
@@ -39,7 +42,7 @@ spec:
     - name: create-image
       params:
       - name: IMAGE
-        value: "$(params.image-repo):$(tasks.fetch-repository.results.commit)"
+        value: "$(params.image-repo):$(tasks.clone-repository.results.commit)"
       runAfter:
       - run-tests
       taskRef:
@@ -48,3 +51,39 @@ spec:
       workspaces:
       - name: source
         workspace: pipeline-shared-data
+    - name: kustomize
+      params:
+        - name: app-name
+          value: $(params.app-name)
+        - name: source-repo
+          value: $(params.github-repo)
+        - name: commit
+          value: "$(tasks.clone-repository.results.commit)"
+        - name: image-repo
+          value: "$(params.image-repo)"
+      runAfter:
+          - create-image
+      taskRef:
+          kind: Task
+          name: kustomize
+      workspaces:
+        - name: source
+          workspace: pipeline-shared-data
+    - name: deploy
+      params:
+        - name: manifest
+          value: $(tasks.kustomize.results.manifest)
+        - name: app-namespace
+          value: $(context.pipelineRun.namespace)
+      runAfter:
+          - kustomize
+          - create-image
+      taskRef:
+          kind: Task
+          name: deploy
+      workspaces:
+        - name: source
+          workspace: pipeline-shared-data
+      
+    
+    
