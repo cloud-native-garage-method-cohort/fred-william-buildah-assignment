@@ -6,6 +6,10 @@ spec:
   workspaces: 
     - name: pipeline-shared-data
   params:
+    - name: sha
+      type: string
+      default: ""
+      description: Precise SHA of the commit to build
     - name: app-name 
       type: string
       description: Name of application
@@ -22,7 +26,9 @@ spec:
         kind: ClusterTask
       params: 
         - name: url
-          value: $(params.github-repo)
+          value: "$(params.source-repo)"
+        - name: revision
+          value: "$(params.sha)"
       workspaces:
         - name: output
           workspace: pipeline-shared-data

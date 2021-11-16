@@ -2,3 +2,9 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
   name: webhook-receiver
+spec:
+  params:
+    - name: source-repo
+      value: $(body.repository.url)
+    - name: sha
+      value: $(body.head_commit.id)
