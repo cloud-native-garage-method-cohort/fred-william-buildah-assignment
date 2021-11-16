@@ -10,4 +10,3 @@ resources:
 - deployment.yaml
 - service.yaml
 - route.yaml
-- webhook-receiver.EventListener.yaml
