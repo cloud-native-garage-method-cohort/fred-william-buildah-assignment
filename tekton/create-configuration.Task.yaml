@@ -29,8 +29,8 @@ spec:
             echo "Error $1 occurred on $2"
           fi
         }
-        pwd 
-        cd k8s
+         
+        cd /workspace/source/k8s
 
         if [ -f kustomization.yaml ] || [ -f kustomization.yml ] || [ -f Kustomization ]; then
           echo "Kustomization file found."
