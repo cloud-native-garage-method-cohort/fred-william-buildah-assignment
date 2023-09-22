@@ -61,7 +61,7 @@ spec:
     - name: manifest-to-results
       image: quay.io/upslopeio/kustomize:latest
       script: |
-        echo -n "/worksapce/source/k8s/manifest.yaml" > $(results.manifest.path)
+        echo -n "/workspace/source/k8s/manifest.yaml" > $(results.manifest.path)
   workspaces:
     - name: source
       description: contains the cloned git repo
