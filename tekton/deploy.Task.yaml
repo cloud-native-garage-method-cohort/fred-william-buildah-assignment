@@ -18,7 +18,7 @@ spec:
         #!/bin/sh
         set -e
 
-        kubectl apply -n $(params.app-namespace) -f ./source/$(params.manifest)
+        kubectl apply -n $(params.app-namespace) -f workspace/source/$(params.manifest)
     - name: verify-deploy
       image: quay.io/upslopeio/kubectl:latest
       script: |
