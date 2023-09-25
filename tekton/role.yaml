@@ -22,6 +22,16 @@ rules:
       - create
       - patch
   - resources:
+      - tasks
+    apiGroups:
+      - tekton.dev
+    verbs:
+      - get
+      - create
+      - list
+      - patch 
+      - watch
+  - resources:
       - services
     apiGroups:
       - ""
