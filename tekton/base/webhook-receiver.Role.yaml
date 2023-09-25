@@ -7,11 +7,13 @@ rules:
       - eventlisteners
       - triggerbindings
       - triggertemplates
+      - triggers
     apiGroups:
       - triggers.tekton.dev
     verbs:
       - get
-      - patch
+      - list
+      - watch
   - resources:
       - pipelineruns
       - pipelineresources
@@ -19,11 +21,12 @@ rules:
       - tekton.dev
     verbs:
       - create
-      - patch
+      - list
   - resources:
       - configmaps
     apiGroups:
       - ""
     verbs:
       - list
-
+      - watch
+      - get
