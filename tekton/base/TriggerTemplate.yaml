@@ -12,11 +12,9 @@ spec:
         serviceAccountName: quay-bot
         params:
           - name: source-repo
-            value: $(tt.params.source-repo)
+            value: https://github.com/cloud-native-garage-method-cohort/fred-william-buildah-assignment.git
           - name: image-repo
-            value: quay.io/faklamanu/fred-william-node-express
-          - name: sha
-            value: $(tt.params.sha)
+            value: quay.io/fred_aklamanu_ibm/nextapp
           - name: app-name
             value: fred-william-node-express-app
         pipelineRef:
