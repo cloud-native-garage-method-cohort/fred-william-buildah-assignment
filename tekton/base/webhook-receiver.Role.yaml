@@ -11,6 +11,7 @@ rules:
       - triggers.tekton.dev
     verbs:
       - get
+      - patch
   - resources:
       - pipelineruns
       - pipelineresources
@@ -18,9 +19,11 @@ rules:
       - tekton.dev
     verbs:
       - create
+      - patch
   - resources:
       - configmaps
     apiGroups:
       - ""
     verbs:
       - list
+
